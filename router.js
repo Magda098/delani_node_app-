@@ -1,5 +1,11 @@
-function route(pathname){
+function route(handle, pathname) {
     console.log("About to route a request for " + pathname);
- }
- 
- exports.route = route;
+    // Check if the request url is a function. since we mapped our expected request urls to a function in request handlers
+    if (typeof handle[pathname] === 'function') {
+        handle[pathname]()
+    } else {
+        console.log("No request handler found for " + pathname);
+    }
+}
+
+exports.route = route;
